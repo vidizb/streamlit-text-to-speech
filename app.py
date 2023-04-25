@@ -3,6 +3,8 @@ import os
 import time
 import glob
 import os
+import openai
+from streamlit_chat import message
 
 
 from gtts import gTTS
