@@ -3,6 +3,8 @@ import os
 import time
 import glob
 import os
+import openai
+from streamlit_chat import message
 
 
 from gtts import gTTS
@@ -15,7 +17,36 @@ except:
 st.title("Text to speech")
 translator = Translator()
 
-text = st.text_input("Enter text")
+
+# Menyimpan obrolan chatbot
+if 'generated' not in st.session_state:
+    st.session_state['generated'] = []
+
+if 'past' not in st.session_state:
+    st.session_state['past'] = []
+
+# Input Penguna 
+def get_text():
+    input_text = st.text_input("Pertanyaan : ","", key="input")
+    return input_text 
+    
+
+# Respone Chatbot
+user_input = get_text()
+   
+if user_input:
+    output = generate_response(user_input)
+    # Menyimpan output
+    st.session_state.past.append(user_input)
+    st.session_state.generated.append(output)
+
+# Untuk menampilkan riwayat obrolan
+if st.session_state['generated']:
+    for i in range(len(st.session_state['generated'])-1, -1, -1):
+        message(st.session_state["generated"][i], key=str(i), avatar_style="initials", seed="j")
+        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user', avatar_style="initials", seed="p")
+
+
 in_lang = st.selectbox(
     "Select your input language",
     ("English", "Hindi", "Bengali", "korean", "Chinese", "Japanese"),
@@ -83,12 +114,12 @@ elif english_accent == "South Africa":
     tld = "co.za"
 
 
-def text_to_speech(input_language, output_language, text, tld):
-    translation = translator.translate(text, src=input_language, dest=output_language)
-    trans_text = translation.text
+def text_to_speech(input_language, output_language, input_text, tld):
+    translation = translator.translate(input_text, src=input_language, dest=output_language)
+    trans_text = translation.input_text
     tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
     try:
-        my_file_name = text[0:20]
+        my_file_name = input_text[0:20]
     except:
         my_file_name = "audio"
     tts.save(f"temp/{my_file_name}.mp3")
@@ -98,7 +129,7 @@ def text_to_speech(input_language, output_language, text, tld):
 display_output_text = st.checkbox("Display output text")
 
 if st.button("convert"):
-    result, output_text = text_to_speech(input_language, output_language, text, tld)
+    result, output_text = text_to_speech(input_language, output_language, input_text, tld)
     audio_file = open(f"temp/{result}.mp3", "rb")
     audio_bytes = audio_file.read()
     st.markdown(f"## Your audio:")
