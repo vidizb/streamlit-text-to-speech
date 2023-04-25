@@ -63,7 +63,7 @@ if st.session_state['generated']:
 
 
 
-text = st.text_input("Enter text")
+input_text = st.text_input("Pertanyaan : ","", key="input")
 in_lang = st.selectbox(
     "Select your input language",
     ("English", "Hindi", "Bengali", "korean", "Chinese", "Japanese"),
