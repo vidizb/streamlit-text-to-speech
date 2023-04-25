@@ -131,7 +131,7 @@ elif english_accent == "South Africa":
 
 def text_to_speech(input_language, output_language, input_text, tld):
     translation = translator.translate(input_text, src=input_language, dest=output_language)
-    trans_text = translation.input_text
+    trans_text = translation.text
     tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
     try:
         my_file_name = input_text[0:20]
