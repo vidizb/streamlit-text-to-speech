@@ -39,10 +39,10 @@ if 'generated' not in st.session_state:
 
 if 'past' not in st.session_state:
     st.session_state['past'] = []
-
+input_text = st.text_input("Pertanyaan : ","", key="input")
 # Input Penguna 
 def get_text():
-    input_text = st.text_input("Pertanyaan : ","", key="input")
+    
     return input_text 
     
 
@@ -62,8 +62,6 @@ if st.session_state['generated']:
         message(st.session_state['past'][i], is_user=True, key=str(i) + '_user', avatar_style="initials", seed="p")
 
 
-
-input_text = st.text_input("Pertanyaan : ","", key="input")
 in_lang = st.selectbox(
     "Select your input language",
     ("English", "Hindi", "Bengali", "korean", "Chinese", "Japanese"),
