@@ -64,7 +64,7 @@ if st.session_state['generated']:
 def text_to_speech(input_language, output_language, input_text2, tld):
     translation = translator.translate(input_text2, src="id", dest="id")
     trans_text = translation.text
-    tts = gTTS(trans_text, lang="id", tld=tld, slow=False)
+    tts = gTTS(trans_text, lang="id", tld="com", slow=False)
     try:
         my_file_name = input_text2[0:20]
     except:
