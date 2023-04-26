@@ -60,7 +60,7 @@ if st.session_state['generated']:
         message(st.session_state["generated"][i], key=str(i), avatar_style="initials", seed="j")
         message(st.session_state['past'][i], is_user=True, key=str(i) + '_user', avatar_style="initials", seed="p")
         input2 = message(st.session_state["generated"][i], key=str(i), avatar_style="initials", seed="j")
-        input_text2 = st.text_input("Pertanyaan : ", input2, key="input")
+        input_text2 = st.text_input("Pertanyaan : ", input2, key="inputz")
 
 in_lang = st.selectbox(
     "Select your input language",
