@@ -14,7 +14,8 @@ try:
     os.mkdir("temp")
 except:
     pass
-st.title("Text to speech")
+st.title("Chatbot JDIH DPRD Batang")
+st.info('Mesin Penjawab Dengan Teknologi ChatGPT dari Open AI. Mohon digunakan dengan bijak sesuai dengan ketentuan dan etika yang berlaku.')
 translator = Translator()
 input_text = st.text_input("Pertanyaan : ","", key="input")
 openai.api_key = st.secrets["model"]
@@ -56,7 +57,7 @@ if user_input:
 	
 if st.session_state['generated']:
     for i in range(len(st.session_state['generated'])-1, -1, -1):
-        input_text2 = st.session_state["generated"][i]
+        input_text2 = st.session_state.generated.append(output)
 
 def text_to_speech(input_language, output_language, input_text2, tld):
     translation = translator.translate(input_text2, src="id", dest="id")
