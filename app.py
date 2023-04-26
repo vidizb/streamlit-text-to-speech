@@ -15,7 +15,7 @@ try:
 except:
     pass
 st.title("Chatbot JDIH DPRD Batang")
-st.info('Mesin Penjawab Dengan Teknologi ChatGPT dari Open AI. Mohon digunakan dengan bijak sesuai dengan ketentuan dan etika yang berlaku.')
+st.info('Mesin Penjawab Dengan Teknologi ChatGPT dari Open AI. Mohon digunakan dengan bijak sesuai dengan etika dan ketentuan yang berlaku.')
 translator = Translator()
 input_text = st.text_input("Pertanyaan : ","", key="input")
 openai.api_key = st.secrets["model"]
@@ -54,11 +54,8 @@ if user_input:
     # Menyimpan output
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
-	
-if st.session_state['generated']:
-    for i in range(len(st.session_state['generated'])-1, -1, -1):
-        input_text2 = st.session_state.generated.append(output)
-
+    input_text2 = st.session_state.generated.append(output)
+    
 def text_to_speech(input_language, output_language, input_text2, tld):
     translation = translator.translate(input_text2, src="id", dest="id")
     trans_text = translation.text
