@@ -16,8 +16,7 @@ except:
     pass
 st.title("Text to speech")
 translator = Translator()
-
-
+input_text = st.text_input("Pertanyaan : ","", key="input")
 openai.api_key = st.secrets["model"]
 
 def generate_response(prompt):
@@ -39,7 +38,7 @@ if 'generated' not in st.session_state:
 
 if 'past' not in st.session_state:
     st.session_state['past'] = []
-input_text = st.text_input("Pertanyaan : ","", key="input")
+
 # Input Penguna 
 def get_text():
     
@@ -58,8 +57,9 @@ if user_input:
 # Untuk menampilkan riwayat obrolan
 if st.session_state['generated']:
     for i in range(len(st.session_state['generated'])-1, -1, -1):
+	message(st.session_state['past'][i], is_user=True, key=str(i) + '_user', avatar_style="initials", seed="p")
         message(st.session_state["generated"][i], key=str(i), avatar_style="initials", seed="j")
-        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user', avatar_style="initials", seed="p")
+        
 
 
 in_lang = st.selectbox(
