@@ -42,7 +42,22 @@ if 'past' not in st.session_state:
 
 # Input Penguna 
 def get_text():
+    
     return input_text 
+    
+
+# Respone Chatbot
+user_input = get_text()
+   
+if user_input:
+    output = generate_response(user_input)
+    # Menyimpan output
+    st.session_state.past.append(user_input)
+    st.session_state.generated.append(output)
+
+if st.session_state['generated']:
+    for i in range(len(st.session_state['generated'])-1, -1, -1):
+        input_text2 = st.session_state["generated"]
     
 def text_to_speech(input_language, output_language, input_text2, tld):
     translation = translator.translate(input_text2, src="id", dest="id")
@@ -55,21 +70,15 @@ def text_to_speech(input_language, output_language, input_text2, tld):
     tts.save(f"temp/{my_file_name}.mp3")
     return my_file_name, trans_text
 
-# Respone Chatbot
-user_input = get_text()
-   
-if user_input:
-    output = generate_response(user_input)
-    # Menyimpan output
-    st.session_state.past.append(user_input)
-    st.session_state.generated.append(output)
-    input_text2 = st.session_state["generated"]
+
+if st.button("convert"):
     result, output_text = text_to_speech("id", "id",input_text2, "com")
     audio_file = open(f"temp/{result}.mp3", "rb")
     audio_bytes = audio_file.read()
     st.write(f" {output_text}")
     st.audio(audio_bytes, format="audio/mp3", start_time=0)
-    
+
+
 def remove_files(n):
     mp3_files = glob.glob("temp/*mp3")
     if len(mp3_files) != 0:
