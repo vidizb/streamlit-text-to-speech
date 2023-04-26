@@ -54,12 +54,7 @@ if user_input:
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
 
-# Untuk menampilkan riwayat obrolan
-if st.session_state['generated']:
-    for i in range(len(st.session_state['generated'])-1, -1, -1):
-        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user', avatar_style="initials", seed="p")
-        input2 = message(st.session_state["generated"][i], key=str(i), avatar_style="initials", seed="j")
-        input_text2 = st.session_state["generated"][i]
+
 
 def text_to_speech(input_language, output_language, input_text2, tld):
     translation = translator.translate(input_text2, src="id", dest="id")
@@ -76,7 +71,7 @@ def text_to_speech(input_language, output_language, input_text2, tld):
 display_output_text = st.checkbox("Display output text")
 
 if st.button("convert"):
-    result, output_text = text_to_speech("id", "id",input_text2, tld)
+    result, output_text = text_to_speech("id", "id",input_text2, "com")
     audio_file = open(f"temp/{result}.mp3", "rb")
     audio_bytes = audio_file.read()
     st.markdown(f"## Your audio:")
