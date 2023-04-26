@@ -59,6 +59,7 @@ if st.session_state['generated']:
     for i in range(len(st.session_state['generated'])-1, -1, -1):
         message(st.session_state['past'][i], is_user=True, key=str(i) + '_user', avatar_style="initials", seed="p")
         input2 = message(st.session_state["generated"][i], key=str(i), avatar_style="initials", seed="j")
+        input_text2 = st.text_input("Pertanyaan : ", input2, key="inputf")
 
 in_lang = st.selectbox(
     "Select your input language",
@@ -127,12 +128,12 @@ elif english_accent == "South Africa":
     tld = "co.za"
 
 
-def text_to_speech(input_language, output_language, input2, tld):
-    translation = translator.translate(input2, src=input_language, dest=output_language)
+def text_to_speech(input_language, output_language, input_text2, tld):
+    translation = translator.translate(input_text2, src=input_language, dest=output_language)
     trans_text = translation.text
     tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
     try:
-        my_file_name = input2[0:20]
+        my_file_name = input_text2[0:20]
     except:
         my_file_name = "audio"
     tts.save(f"temp/{my_file_name}.mp3")
@@ -142,7 +143,7 @@ def text_to_speech(input_language, output_language, input2, tld):
 display_output_text = st.checkbox("Display output text")
 
 if st.button("convert"):
-    result, output_text = text_to_speech(input_language, output_language,input2, tld)
+    result, output_text = text_to_speech(input_language, output_language,input_text2, tld)
     audio_file = open(f"temp/{result}.mp3", "rb")
     audio_bytes = audio_file.read()
     st.markdown(f"## Your audio:")
