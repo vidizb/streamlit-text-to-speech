@@ -61,77 +61,10 @@ if st.session_state['generated']:
         input2 = message(st.session_state["generated"][i], key=str(i), avatar_style="initials", seed="j")
         input_text2 = st.session_state["generated"][i]
 
-in_lang = st.selectbox(
-    "Select your input language",
-    ("English", "Hindi", "Bengali", "korean", "Chinese", "Japanese"),
-)
-if in_lang == "English":
-    input_language = "en"
-elif in_lang == "Hindi":
-    input_language = "hi"
-elif in_lang == "Bengali":
-    input_language = "bn"
-elif in_lang == "korean":
-    input_language = "ko"
-elif in_lang == "Chinese":
-    input_language = "zh-cn"
-elif in_lang == "Japanese":
-    input_language = "ja"
-
-out_lang = st.selectbox(
-    "Select your output language",
-    ("English", "Hindi", "Bengali", "korean", "Chinese", "Japanese"),
-)
-if out_lang == "English":
-    output_language = "en"
-elif out_lang == "Hindi":
-    output_language = "hi"
-elif out_lang == "Bengali":
-    output_language = "bn"
-elif out_lang == "korean":
-    output_language = "ko"
-elif out_lang == "Chinese":
-    output_language = "zh-cn"
-elif out_lang == "Japanese":
-    output_language = "ja"
-
-english_accent = st.selectbox(
-    "Select your english accent",
-    (
-        "Default",
-        "India",
-        "United Kingdom",
-        "United States",
-        "Canada",
-        "Australia",
-        "Ireland",
-        "South Africa",
-    ),
-)
-
-if english_accent == "Default":
-    tld = "com"
-elif english_accent == "India":
-    tld = "co.in"
-
-elif english_accent == "United Kingdom":
-    tld = "co.uk"
-elif english_accent == "United States":
-    tld = "com"
-elif english_accent == "Canada":
-    tld = "ca"
-elif english_accent == "Australia":
-    tld = "com.au"
-elif english_accent == "Ireland":
-    tld = "ie"
-elif english_accent == "South Africa":
-    tld = "co.za"
-
-
 def text_to_speech(input_language, output_language, input_text2, tld):
-    translation = translator.translate(input_text2, src=input_language, dest=output_language)
+    translation = translator.translate(input_text2, src="id", dest="id")
     trans_text = translation.text
-    tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
+    tts = gTTS(trans_text, lang="id", tld=tld, slow=False)
     try:
         my_file_name = input_text2[0:20]
     except:
@@ -143,7 +76,7 @@ def text_to_speech(input_language, output_language, input_text2, tld):
 display_output_text = st.checkbox("Display output text")
 
 if st.button("convert"):
-    result, output_text = text_to_speech(input_language, output_language,input_text2, tld)
+    result, output_text = text_to_speech("id", "id",input_text2, tld)
     audio_file = open(f"temp/{result}.mp3", "rb")
     audio_bytes = audio_file.read()
     st.markdown(f"## Your audio:")
