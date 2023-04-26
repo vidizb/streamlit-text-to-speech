@@ -128,12 +128,12 @@ elif english_accent == "South Africa":
     tld = "co.za"
 
 
-def text_to_speech(input_language, output_language, input_text, tld):
-    translation = translator.translate(input_text, src=input_language, dest=output_language)
+def text_to_speech(input_language, output_language, input_text2, tld):
+    translation = translator.translate(input_text2, src=input_language, dest=output_language)
     trans_text = translation.text
     tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
     try:
-        my_file_name = input_text[0:20]
+        my_file_name = input_text2[0:20]
     except:
         my_file_name = "audio"
     tts.save(f"temp/{my_file_name}.mp3")
@@ -143,7 +143,7 @@ def text_to_speech(input_language, output_language, input_text, tld):
 display_output_text = st.checkbox("Display output text")
 
 if st.button("convert"):
-    result, output_text = text_to_speech(input_language, output_language,input_text, tld)
+    result, output_text = text_to_speech(input_language, output_language,input_text2, tld)
     audio_file = open(f"temp/{result}.mp3", "rb")
     audio_bytes = audio_file.read()
     st.markdown(f"## Your audio:")
