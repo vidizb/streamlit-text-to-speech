@@ -59,9 +59,8 @@ if st.session_state['generated']:
     for i in range(len(st.session_state['generated'])-1, -1, -1):
         message(st.session_state["generated"][i], key=str(i), avatar_style="initials", seed="j")
         message(st.session_state['past'][i], is_user=True, key=str(i) + '_user', avatar_style="initials", seed="p")
-	input_text2 = st.text_input("Pertanyaan : ","message(st.session_state["generated"][i], key=str(i), avatar_style="initials", seed="j")", key="input")
-        
-
+	input2 = message(st.session_state["generated"][i], key=str(i), avatar_style="initials", seed="j")
+	input_text2 = st.text_input("Pertanyaan : ",input2, key="input")
 
 in_lang = st.selectbox(
     "Select your input language",
