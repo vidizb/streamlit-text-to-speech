@@ -15,7 +15,7 @@ try:
 except:
     pass
 st.title("Chatbot JDIH DPRD Batang")
-st.info('Mesin Penjawab Dengan Teknologi ChatGPT dari Open AI. Mohon digunakan dengan bijak sesuai dengan etika dan ketentuan yang berlaku.')
+st.info('Mesin Penjawab Dengan Teknologi ChatGPT dari Open AI. Informasi yang disajikan tidak sepenuhnya benar. Mohon digunakan dengan bijak sesuai dengan etika dan ketentuan yang berlaku.')
 translator = Translator()
 input_text = st.text_input("Pertanyaan : ","", key="input")
 openai.api_key = st.secrets["model"]
