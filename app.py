@@ -29,6 +29,9 @@ def generate_response(prompt):
 		stop = None,                 # Untuk berhenti menghasilkan teks
 		temperature = 0.5,           # Untuk mengontrol teks yang dihasilkan
 	)
+	if not completions:
+        st.error("Maaf belum bisa menampilkan jawaban")
+        st.stop()
 	message = completions.choices[0].text
 	return message
 
@@ -70,9 +73,7 @@ if user_input:
     audio_bytes = audio_file.read()
     st.write(f" {output_text}")
     st.audio(audio_bytes, format="audio/mp3", start_time=0)
-    if not output:
-        st.error("Maaf belum bisa menampilkan jawaban")
-        st.stop()
+    
     
 def remove_files(n):
     mp3_files = glob.glob("temp/*mp3")
