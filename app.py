@@ -30,8 +30,8 @@ def generate_response(prompt):
 		temperature = 0.5,           # Untuk mengontrol teks yang dihasilkan
 	)
 	if not completions:
-        st.error("Maaf belum bisa menampilkan jawaban")
-        st.stop()
+		st.error("Maaf belum bisa menampilkan jawaban")
+		st.stop()
 	message = completions.choices[0].text
 	return message
 
